@@ -105,3 +105,10 @@ dist
 
 # Avoid to update SECRET_KEY to github
 *local_settings.py
+
+*/.idea/
+.idea/
+*/__pycache__/
+__pycache__/
+*/django_rest_api/media
+*.DS_Store
