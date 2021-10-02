@@ -1,0 +1,34 @@
+version: "3"
+
+volumes:
+  node_modules_volume:
+
+services:
+  rest_api:
+    build:
+      context: .
+      dockerfile: DockerfilePython
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./code/django_rest_api:/code
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+  web_front:
+    build:
+      context: .
+      dockerfile: DockerfileNode
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./code/react_web_front:/code
+#     If we don't mounted "node_modules" directory, it takes long time to use yarn command.
+#     Because all node module packages will be installed at every yarn command
+#     ex) yarn add "package-name"
+      - 'node_modules_volume:/code/node_modules'
+#   When we create a container FIRST TIME, we have to use below command to create-react-app
+    tty: true
+    command: >
+      sh -c "cd /code && yarn start"
+    depends_on:
+      - rest_api
