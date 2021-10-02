@@ -104,4 +104,4 @@ dist
 .tern-port
 
 # Avoid to update SECRET_KEY to github
-./code/django_rest_api/config/local_settings.py
+.code/django_rest_api/config/local_settings.py
