@@ -111,4 +111,4 @@ dist
 */__pycache__/
 __pycache__/
 */django_rest_api/media
-*.DS_Store
+.DS_Store
