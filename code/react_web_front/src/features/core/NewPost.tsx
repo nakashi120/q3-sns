@@ -16,9 +16,9 @@ import {
 } from "../post/postSlice"
 
 import { Button, TextField, IconButton } from "@material-ui/core"
-// import { MdAddAPhoto } from "react-icons/md"
+import { MdAddAPhoto } from "react-icons/md"
 // import PhotoCameraIcon from "@mui/icons-material/PhotoCamera"
-import AddAPhotoIcon from "@material-ui/icons/AddAPhoto"
+// import AddAPhotoIcon from "@material-ui/icons/AddAPhoto"
 
 const customStyles = {
   content: {
@@ -83,7 +83,7 @@ const NewPost: React.FC = () => {
           />
           <br />
           <IconButton onClick={handlerEditPicture}>
-            <AddAPhotoIcon />
+            <MdAddAPhoto />
           </IconButton>
           <br />
           <Button
