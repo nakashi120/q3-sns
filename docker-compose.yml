@@ -1,7 +1,7 @@
 version: "3"
 
-volumes:
-  node_modules_volume:
+# volumes:
+#   node_modules_volume:
 
 services:
   rest_api:
@@ -25,10 +25,10 @@ services:
 #     If we don't mounted "node_modules" directory, it takes long time to use yarn command.
 #     Because all node module packages will be installed at every yarn command
 #     ex) yarn add "package-name"
-      - 'node_modules_volume:/code/node_modules'
+      # - 'node_modules_volume:/code/node_modules'
 #   When we create a container FIRST TIME, we have to use below command to create-react-app
     tty: true
     command: >
-      sh -c "cd /code && yarn start"
+      sh -c "cd /code && npm start"
     depends_on:
       - rest_api
