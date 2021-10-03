@@ -14,7 +14,7 @@ import {
   CircularProgress,
 } from "@material-ui/core"
 
-import { MdAddAPhoto } from "react-icons/md"
+import AddAPhotoIcon from "@material-ui/icons/AddAPhoto"
 
 import {
   editNickname,
@@ -102,7 +102,7 @@ const Core: React.FC = () => {
       <EditProfile />
       <NewPost />
       <div className={styles.core_header}>
-        <h1 className={styles.core_title}>SNS clone</h1>
+        <h1 className={styles.core_title}>Q3 SNS</h1>
         {profile?.nickName ? (
           <>
             <button
@@ -112,7 +112,7 @@ const Core: React.FC = () => {
                 dispatch(resetOpenProfile())
               }}
             >
-              <MdAddAPhoto />
+              <AddAPhotoIcon fontSize="large" />
             </button>
             <div className={styles.core_logout}>
               {(isLoadingPost || isLoadingAuth) && <CircularProgress />}

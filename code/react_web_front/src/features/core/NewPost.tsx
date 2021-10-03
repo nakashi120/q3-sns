@@ -16,7 +16,9 @@ import {
 } from "../post/postSlice"
 
 import { Button, TextField, IconButton } from "@material-ui/core"
-import { MdAddAPhoto } from "react-icons/md"
+// import { MdAddAPhoto } from "react-icons/md"
+// import PhotoCameraIcon from "@mui/icons-material/PhotoCamera"
+import AddAPhotoIcon from "@material-ui/icons/AddAPhoto"
 
 const customStyles = {
   content: {
@@ -64,7 +66,7 @@ const NewPost: React.FC = () => {
         style={customStyles}
       >
         <form className={styles.core_signUp}>
-          <h1 className={styles.core_title}>SNS clone</h1>
+          <h1 className={styles.core_title}>Q3 SNS</h1>
 
           <br />
           <TextField
@@ -81,7 +83,7 @@ const NewPost: React.FC = () => {
           />
           <br />
           <IconButton onClick={handlerEditPicture}>
-            <MdAddAPhoto />
+            <AddAPhotoIcon />
           </IconButton>
           <br />
           <Button

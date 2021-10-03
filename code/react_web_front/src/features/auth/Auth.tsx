@@ -1,13 +1,13 @@
-import React from "react";
-import { AppDispatch } from "../../app/store";
-import { useSelector, useDispatch } from "react-redux";
-import styles from "./Auth.module.css";
-import Modal from "react-modal";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import { TextField, Button, CircularProgress } from "@material-ui/core";
+import React from "react"
+import { AppDispatch } from "../../app/store"
+import { useSelector, useDispatch } from "react-redux"
+import styles from "./Auth.module.css"
+import Modal from "react-modal"
+import { Formik } from "formik"
+import * as Yup from "yup"
+import { TextField, Button, CircularProgress } from "@material-ui/core"
 
-import { fetchAsyncGetPosts, fetchAsyncGetComments } from "../post/postSlice";
+import { fetchAsyncGetPosts, fetchAsyncGetComments } from "../post/postSlice"
 
 import {
   selectIsLoadingAuth,
@@ -24,7 +24,7 @@ import {
   fetchAsyncGetMyProf,
   fetchAsyncGetProfs,
   fetchAsyncCreateProf,
-} from "./authSlice";
+} from "./authSlice"
 
 const customStyles = {
   overlay: {
@@ -40,21 +40,21 @@ const customStyles = {
 
     transform: "translate(-50%, -50%)",
   },
-};
+}
 
 const Auth: React.FC = () => {
-  Modal.setAppElement("#root");
-  const openSignIn = useSelector(selectOpenSignIn);
-  const openSignUp = useSelector(selectOpenSignUp);
-  const isLoadingAuth = useSelector(selectIsLoadingAuth);
-  const dispatch: AppDispatch = useDispatch();
+  Modal.setAppElement("#root")
+  const openSignIn = useSelector(selectOpenSignIn)
+  const openSignUp = useSelector(selectOpenSignUp)
+  const isLoadingAuth = useSelector(selectIsLoadingAuth)
+  const dispatch: AppDispatch = useDispatch()
 
   return (
     <>
       <Modal
         isOpen={openSignUp}
         onRequestClose={async () => {
-          await dispatch(resetOpenSignUp());
+          await dispatch(resetOpenSignUp())
         }}
         style={customStyles}
       >
@@ -62,20 +62,20 @@ const Auth: React.FC = () => {
           initialErrors={{ email: "required" }}
           initialValues={{ email: "", password: "" }}
           onSubmit={async (values) => {
-            await dispatch(fetchCredStart());
-            const resultReg = await dispatch(fetchAsyncRegister(values));
+            await dispatch(fetchCredStart())
+            const resultReg = await dispatch(fetchAsyncRegister(values))
 
             if (fetchAsyncRegister.fulfilled.match(resultReg)) {
-              await dispatch(fetchAsyncLogin(values));
-              await dispatch(fetchAsyncCreateProf({ nickName: "anonymous" }));
+              await dispatch(fetchAsyncLogin(values))
+              await dispatch(fetchAsyncCreateProf({ nickName: "anonymous" }))
 
-              await dispatch(fetchAsyncGetProfs());
-              await dispatch(fetchAsyncGetPosts());
-              await dispatch(fetchAsyncGetComments());
-              await dispatch(fetchAsyncGetMyProf());
+              await dispatch(fetchAsyncGetProfs())
+              await dispatch(fetchAsyncGetPosts())
+              await dispatch(fetchAsyncGetComments())
+              await dispatch(fetchAsyncGetMyProf())
             }
-            await dispatch(fetchCredEnd());
-            await dispatch(resetOpenSignUp());
+            await dispatch(fetchCredEnd())
+            await dispatch(resetOpenSignUp())
           }}
           validationSchema={Yup.object().shape({
             email: Yup.string()
@@ -96,7 +96,7 @@ const Auth: React.FC = () => {
             <div>
               <form onSubmit={handleSubmit}>
                 <div className={styles.auth_signUp}>
-                  <h1 className={styles.auth_title}>SNS clone</h1>
+                  <h1 className={styles.auth_title}>Q3 SNS</h1>
                   <br />
                   <div className={styles.auth_progress}>
                     {isLoadingAuth && <CircularProgress />}
@@ -143,8 +143,8 @@ const Auth: React.FC = () => {
                   <span
                     className={styles.auth_text}
                     onClick={async () => {
-                      await dispatch(setOpenSignIn());
-                      await dispatch(resetOpenSignUp());
+                      await dispatch(setOpenSignIn())
+                      await dispatch(resetOpenSignUp())
                     }}
                   >
                     You already have a account ?
@@ -159,7 +159,7 @@ const Auth: React.FC = () => {
       <Modal
         isOpen={openSignIn}
         onRequestClose={async () => {
-          await dispatch(resetOpenSignIn());
+          await dispatch(resetOpenSignIn())
         }}
         style={customStyles}
       >
@@ -167,16 +167,16 @@ const Auth: React.FC = () => {
           initialErrors={{ email: "required" }}
           initialValues={{ email: "", password: "" }}
           onSubmit={async (values) => {
-            await dispatch(fetchCredStart());
-            const result = await dispatch(fetchAsyncLogin(values));
+            await dispatch(fetchCredStart())
+            const result = await dispatch(fetchAsyncLogin(values))
             if (fetchAsyncLogin.fulfilled.match(result)) {
-              await dispatch(fetchAsyncGetProfs());
-              await dispatch(fetchAsyncGetPosts());
-              await dispatch(fetchAsyncGetComments());
-              await dispatch(fetchAsyncGetMyProf());
+              await dispatch(fetchAsyncGetProfs())
+              await dispatch(fetchAsyncGetPosts())
+              await dispatch(fetchAsyncGetComments())
+              await dispatch(fetchAsyncGetMyProf())
             }
-            await dispatch(fetchCredEnd());
-            await dispatch(resetOpenSignIn());
+            await dispatch(fetchCredEnd())
+            await dispatch(resetOpenSignIn())
           }}
           validationSchema={Yup.object().shape({
             email: Yup.string()
@@ -197,7 +197,7 @@ const Auth: React.FC = () => {
             <div>
               <form onSubmit={handleSubmit}>
                 <div className={styles.auth_signUp}>
-                  <h1 className={styles.auth_title}>SNS clone</h1>
+                  <h1 className={styles.auth_title}>Q3 SNS</h1>
                   <br />
                   <div className={styles.auth_progress}>
                     {isLoadingAuth && <CircularProgress />}
@@ -244,8 +244,8 @@ const Auth: React.FC = () => {
                   <span
                     className={styles.auth_text}
                     onClick={async () => {
-                      await dispatch(resetOpenSignIn());
-                      await dispatch(setOpenSignUp());
+                      await dispatch(resetOpenSignIn())
+                      await dispatch(setOpenSignUp())
                     }}
                   >
                     You don't have a account ?
@@ -257,7 +257,7 @@ const Auth: React.FC = () => {
         </Formik>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default Auth;
+export default Auth

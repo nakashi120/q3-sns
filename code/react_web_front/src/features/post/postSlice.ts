@@ -139,7 +139,6 @@ export const postSlice = createSlice({
       }
     })
     // @ts-ignore
-
     builder.addCase(fetchAsyncNewPost.fulfilled, (state, action) => {
       return {
         ...state,
