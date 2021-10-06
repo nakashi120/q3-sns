@@ -1,18 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import { RootState } from "../../app/store"
 import axios from "axios"
-import { PROPS_AUTHEN, PROPS_PROFILE, PROPS_NICKNAME } from "../types"
+import { PROPS_AUTHEN, PROPS_PROFILE, PROPS_NICKNAME, JWT } from "../types"
 
 const apiUrl = process.env.REACT_APP_DEV_API_URL
 
 export const fetchAsyncLogin = createAsyncThunk(
   "auth/post",
   async (authen: PROPS_AUTHEN) => {
-    const res = await axios.post(`${apiUrl}authen/jwt/create`, authen, {
+    const res = await axios.post<JWT>(`${apiUrl}authen/jwt/create`, authen, {
       headers: {
         "Content-Type": "application/json",
       },
     })
+    console.log(`fetchAsyncLogin: ${res.data}`)
     return res.data
   }
 )
@@ -25,6 +26,7 @@ export const fetchAsyncRegister = createAsyncThunk(
         "Content-Type": "application/json",
       },
     })
+    console.log(`fetchAsyncRegister: ${res.data}`)
     return res.data
   }
 )
@@ -38,6 +40,7 @@ export const fetchAsyncCreateProf = createAsyncThunk(
         Authorization: `JWT ${localStorage.localJWT}`,
       },
     })
+    console.log(`fetchAsyncCreateProf: ${res.data}`)
     return res.data
   }
 )
@@ -58,6 +61,7 @@ export const fetchAsyncUpdateProf = createAsyncThunk(
         },
       }
     )
+    console.log(`fetchAsyncUpdateProf: ${res.data}`)
     return res.data
   }
 )
@@ -68,6 +72,7 @@ export const fetchAsyncGetMyProf = createAsyncThunk("profile/get", async () => {
       Authorization: `JWT ${localStorage.localJWT}`,
     },
   })
+  console.log(`etchAsyncGetMyProf: ${res.data[0]}`)
   return res.data[0]
 })
 
@@ -77,6 +82,7 @@ export const fetchAsyncGetProfs = createAsyncThunk("profiles/get", async () => {
       Authorization: `JWT ${localStorage.localJWT}`,
     },
   })
+  console.log(`fetchAsyncGetProfs: ${res.data}`)
   return res.data
 })
 
@@ -135,27 +141,20 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncLogin.fulfilled, (state, action) => {
-      // @ts-ignore
       localStorage.setItem("localJWT", action.payload.access)
     })
     builder.addCase(fetchAsyncCreateProf.fulfilled, (state, action) => {
-      // @ts-ignore
       state.myprofile = action.payload
     })
     builder.addCase(fetchAsyncGetMyProf.fulfilled, (state, action) => {
-      // @ts-ignore
       state.myprofile = action.payload
     })
     builder.addCase(fetchAsyncGetProfs.fulfilled, (state, action) => {
-      // @ts-ignore
       state.profiles = action.payload
     })
     builder.addCase(fetchAsyncUpdateProf.fulfilled, (state, action) => {
-      // @ts-ignore
       state.myprofile = action.payload
-      // @ts-ignore
       state.profiles = state.profiles.map((prof) =>
-        // @ts-ignore
         prof.id === action.payload.id ? action.payload : prof
       )
     })

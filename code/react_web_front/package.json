@@ -16,7 +16,7 @@
     "@types/react-dom": "^16.9.14",
     "@types/react-modal": "^3.12.1",
     "@types/react-redux": "^7.1.18",
-    "axios": "^0.22.0",
+    "axios": "^0.21.1",
     "formik": "^2.2.9",
     "formik-material-ui": "^4.0.0-alpha.1",
     "react": "^17.0.2",
