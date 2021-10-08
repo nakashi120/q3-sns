@@ -112,3 +112,5 @@ dist
 __pycache__/
 */django_rest_api/media
 .DS_Store
+*db.sqlite3
+*/db.sqlite3
