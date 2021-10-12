@@ -3,6 +3,9 @@ version: "3"
 # volumes:
 #   node_modules_volume:
 
+volumes:
+  postgres_data:
+
 services:
   rest_api:
     build:
@@ -14,6 +17,18 @@ services:
       - ./code/django_rest_api:/code
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+
+  db:
+    image: postgres:12.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.dev
+
   web_front:
     build:
       context: .

@@ -2,15 +2,21 @@ FROM python:3.7-alpine
 MAINTAINER Nakashi
 
 ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
 
 RUN mkdir /code
 WORKDIR /code
 ADD ./code/django_rest_api/requirements.txt /code/
+ADD ./.env.dev /code/
 RUN apk add --update --no-cache postgresql-client jpeg-dev
 RUN apk add --update --no-cache --virtual .tmp-build-deps \
       gcc libc-dev linux-headers postgresql-dev musl-dev zlib zlib-dev \
-      jpeg-dev libjpeg
+      jpeg-dev libjpeg python3-dev
 RUN pip install -r requirements.txt
+
+ADD ./code/django_rest_api/entrypoint.sh /code/
 
 RUN adduser -D user
 USER user
+
+ENTRYPOINT ["/code/entrypoint.sh"]
